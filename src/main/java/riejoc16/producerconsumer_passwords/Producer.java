@@ -6,7 +6,6 @@
 package riejoc16.producerconsumer_passwords;
 
 import java.util.ArrayList;
-import java.util.Queue;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +34,6 @@ public class Producer extends Thread {
 
     @Override
     public void run() {
-        super.run(); 
         while(true){
             if(queue.isEmpty()){
                 addToQueue(createNewPassword());
