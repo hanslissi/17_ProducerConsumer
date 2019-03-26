@@ -16,8 +16,10 @@ public class ProducerConsumer {
     public static void main(String[] args) {
         ProducerConsumer pc = new ProducerConsumer();
         ArrayList<Password> queue = new ArrayList<>();
+        queue.add(new Password("hello"));
         Producer producer = new Producer(queue);
-        producer.run();
-        
+        Consumer consumer1 = new Consumer(queue);
+        new Thread(producer, "Producer").start();
+        new Thread(consumer1, "Consumer1").start();
     }
 }

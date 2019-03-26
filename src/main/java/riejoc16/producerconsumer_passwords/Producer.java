@@ -7,25 +7,24 @@ package riejoc16.producerconsumer_passwords;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author johannesriedmueller
  */
 public class Producer extends Thread {
+
     private ArrayList<Password> queue;
-            
+
     public Producer(ArrayList<Password> queue) {
         this.queue = queue;
     }
-    
-    public void addToQueue(Password password){
+
+    public void addToQueue(Password password) {
         queue.add(password);
     }
-    
-    public Password createNewPassword(){
+
+    public Password createNewPassword() {
         System.out.print("Enter a password: ");
         Scanner sc = new Scanner(System.in);
         String password = sc.next();
@@ -34,21 +33,12 @@ public class Producer extends Thread {
 
     @Override
     public void run() {
-        while(true){
-            if(queue.isEmpty()){
-                addToQueue(createNewPassword());
-            }
-            else{
-                notify();
-                try {
-                    this.wait();
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Producer.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        while (true) {
+            addToQueue(createNewPassword());
+            synchronized (queue) {
+                queue.notify();
             }
         }
     }
-
-    
 
 }

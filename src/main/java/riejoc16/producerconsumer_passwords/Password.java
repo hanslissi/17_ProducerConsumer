@@ -19,4 +19,10 @@ public class Password {
     public boolean check(String otherPassword){
         return password.equals(otherPassword);
     }
+
+    public String getPassword() {
+        return password;
+    }
+    
+    
 }
